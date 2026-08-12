@@ -1,12 +1,12 @@
 cask "forge-app" do
-  version "0.1.0-edge.fda418f"
+  version "0.1.0-edge.3c9eb4a"
 
   on_arm do
-    sha256 "a8ac26ccbc4c0464f7c18932410716503d4b704594e1cb251a8336e744ababda"
+    sha256 "2f697c1d4a04e7ccd6ef4838af588a88ba3144995b763d379a0ef4826b77e838"
     url "https://github.com/RyanStoffel/forge/releases/download/forge-app-#{version}/Forge-aarch64-apple-darwin.zip"
   end
   on_intel do
-    sha256 "62481d7912f1ee707a4bfabb431c02f20a82a03fa0eb4b581e73ed8fdef8f025"
+    sha256 "400fd92f0a000d9e4d8750edc83147b85151a05edde262f732c11c275399f389"
     url "https://github.com/RyanStoffel/forge/releases/download/forge-app-#{version}/Forge-x86_64-apple-darwin.zip"
   end
 
@@ -17,6 +17,8 @@ cask "forge-app" do
   livecheck do
     skip "Forge app casks follow the project's continuously published edge channel"
   end
+
+  depends_on macos: ">= :monterey"
 
   app "Forge.app"
   binary "#{appdir}/Forge.app/Contents/MacOS/forge"
