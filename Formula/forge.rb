@@ -1,16 +1,16 @@
 class Forge < Formula
   desc "Native terminal, editor, Git, and coding-agent workspace"
   homepage "https://github.com/RyanStoffel/forge"
-  version "0.1.0-edge.2f29014"
+  version "0.1.0-edge.c7152ae"
   license :cannot_represent
 
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/RyanStoffel/forge/releases/download/edge/forge-aarch64-apple-darwin"
-      sha256 "8cd03c661d9e895715da2a80ef86ff617d85823df5f19ea6602aa169ea76056f"
+      sha256 "1048ea268bb60212e8bcad48589494358334120725dea55013eade33619a022a"
     else
       url "https://github.com/RyanStoffel/forge/releases/download/edge/forge-x86_64-apple-darwin"
-      sha256 "c6806649dac1d8dccf5f614e0b92acf20f6b6ffd0bebd4a636df3097b8b206ef"
+      sha256 "037498cf1fa0a2e8295e99075cbae80dc06d9002011732521f6c73c16560f313"
     end
   end
 
