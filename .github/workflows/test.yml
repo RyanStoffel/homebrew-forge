@@ -42,12 +42,14 @@ jobs:
           mkdir -p "$(dirname "$tap_path")"
           ln -s "$GITHUB_WORKSPACE" "$tap_path"
       - name: Audit cask
-        run: brew audit --cask --strict --online "$TAP/forge"
+        run: brew audit --cask --strict --online "$TAP/forge-app"
       - name: Install cask
-        run: brew install --cask "$TAP/forge"
+        run: brew install --cask "$TAP/forge-app"
       - name: Verify application bundle
         run: |
           test -d /Applications/Forge.app
           plutil -lint /Applications/Forge.app/Contents/Info.plist
           codesign --verify --deep --strict /Applications/Forge.app
-          /Applications/Forge.app/Contents/MacOS/forge --version
+          cp /Applications/Forge.app/Contents/MacOS/forge /tmp/forge-version-test
+          chmod 755 /tmp/forge-version-test
+          /tmp/forge-version-test --version
