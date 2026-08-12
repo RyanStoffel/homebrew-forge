@@ -1,4 +1,4 @@
-name: Test formula
+name: Test Homebrew artifacts
 
 on:
   pull_request:
@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: Audit and install Forge
+  formula:
+    name: Audit and install formula
     runs-on: macos-14
     env:
       TAP: RyanStoffel/forge-ci
@@ -25,8 +25,29 @@ jobs:
       - name: Audit formula
         run: brew audit --strict --online "$TAP/forge"
       - name: Install formula
-        run: brew install "$TAP/forge"
-      - name: Verify executable
-        run: forge --version
+        run: brew install --formula "$TAP/forge"
       - name: Run formula test
         run: brew test "$TAP/forge"
+
+  cask:
+    name: Audit and install desktop app
+    runs-on: macos-14
+    env:
+      TAP: RyanStoffel/forge-ci
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stage repository as a local tap
+        run: |
+          tap_path="$(brew --repository)/Library/Taps/ryanstoffel/homebrew-forge-ci"
+          mkdir -p "$(dirname "$tap_path")"
+          ln -s "$GITHUB_WORKSPACE" "$tap_path"
+      - name: Audit cask
+        run: brew audit --cask --strict --online "$TAP/forge"
+      - name: Install cask
+        run: brew install --cask "$TAP/forge"
+      - name: Verify application bundle
+        run: |
+          test -d /Applications/Forge.app
+          plutil -lint /Applications/Forge.app/Contents/Info.plist
+          codesign --verify --deep --strict /Applications/Forge.app
+          /Applications/Forge.app/Contents/MacOS/forge --version
