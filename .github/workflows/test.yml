@@ -1,0 +1,32 @@
+name: Test formula
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Audit and install Forge
+    runs-on: macos-14
+    env:
+      TAP: RyanStoffel/forge-ci
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stage repository as a local tap
+        run: |
+          tap_path="$(brew --repository)/Library/Taps/ryanstoffel/homebrew-forge-ci"
+          mkdir -p "$(dirname "$tap_path")"
+          ln -s "$GITHUB_WORKSPACE" "$tap_path"
+      - name: Audit formula
+        run: brew audit --strict --online "$TAP/forge"
+      - name: Install formula
+        run: brew install "$TAP/forge"
+      - name: Verify executable
+        run: forge --version
+      - name: Run formula test
+        run: brew test "$TAP/forge"
