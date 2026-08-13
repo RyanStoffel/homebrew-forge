@@ -1,12 +1,12 @@
 cask "forge-app" do
-  version "0.1.0-edge.b8b5267"
+  version "0.1.0-edge.ffcd851"
 
   on_arm do
-    sha256 "e0d1d779cdd05b9c5ffca39877b7269263073cab8f5115615eabfc6daf3e3bf9"
+    sha256 "93ad030bd48d2ad237c8e542cf7b48d0de4254bfdb77dd69d2aa73237361f61c"
     url "https://github.com/RyanStoffel/forge/releases/download/forge-app-#{version}/Forge-aarch64-apple-darwin.zip"
   end
   on_intel do
-    sha256 "bd5c44afa2c83c235adbbb96e0b7a76bfbcf9f1eada379768907f8e4ed83944d"
+    sha256 "34067aea2eac660db886604de5475009bedd23c0ea3151da6535240570802b9a"
     url "https://github.com/RyanStoffel/forge/releases/download/forge-app-#{version}/Forge-x86_64-apple-darwin.zip"
   end
 
